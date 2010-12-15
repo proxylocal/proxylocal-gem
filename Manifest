@@ -1,0 +1,4 @@
+Manifest
+Rakefile
+bin/proxylocal
+lib/client.rb

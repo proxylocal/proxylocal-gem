@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'yaml'
+require File.expand_path('client', File.join(File.dirname(__FILE__), '..', 'lib'))
+
+rc_path = File.expand_path(File.join('~', '.proxylocalrc'))
+rc = YAML.load_file(rc_path) rescue {}
+
+options = rc.dup
+
+begin
+  cmd_args = OptionParser.new do |opts|
+    opts.banner = 'Usage: proxylocal [options] [PORT]'
+
+    opts.on('--token TOKEN', 'Save token to .proxylocalrc') do |token|
+      rc[:token] = token
+      File.open(rc_path, 'w') { |f| f.write(YAML.dump(rc)) }
+      File.chmod(0600, rc_path)
+      exit
+    end
+
+    opts.on('--host HOST', 'Bind to host') do |host|
+      options[:hosts] ||= []
+      options[:hosts] << host
+    end
+
+    opts.on('--[no-]tls', 'Use TLS') do |tls|
+      options[:tls] = tls
+    end
+
+    opts.on('-s', '--server SERVER', 'Specify proxylocal server') do |s|
+      options[:server_host], options[:server_port] = s.split(':')
+    end
+
+    opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
+      options[:verbose] = v
+    end
+
+    opts.on_tail("--version", "Show version") do
+      puts ProxyLocal::VERSION
+      exit
+    end
+
+    opts.on_tail('-h', '--help', 'Show this message') do
+      puts opts
+      exit
+    end
+  end.parse!
+rescue OptionParser::MissingArgument => e
+  puts e
+  exit
+rescue OptionParser::InvalidOption => e
+  puts e
+  exit
+end
+
+options[:local_port] = cmd_args[0]
+
+default_options = {
+  :server_host => 'proxylocal.com',
+  :server_port => '8282',
+  :local_port => '80',
+  :tls => false,
+  :verbose => false,
+  :version => ProxyLocal::VERSION
+}
+
+options = default_options.merge(options.reject { |k, v| v.nil? })
+
+ProxyLocal::Client.run(options)
