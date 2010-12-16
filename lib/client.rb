@@ -93,7 +93,7 @@ module ProxyLocal
         @connections[id] = connection
       when :stream
         _, id, data = message
-        @connections[id].send_data(data)
+        @connections[id].send_data(data) if @connections[id]
       when :close
         _, id = message
         connection = @connections.delete(id)
