@@ -4,7 +4,7 @@ require 'eventmachine'
 require 'bert'
 
 module ProxyLocal
-  VERSION = '0.2.2'
+  VERSION = '0.2.3'
 
   module Serializer
     def self.dump(object)
