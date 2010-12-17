@@ -4,7 +4,7 @@ require 'eventmachine'
 require 'bert'
 
 module ProxyLocal
-  VERSION = '0.2.3'
+  VERSION = '0.2.4'
 
   module Serializer
     def self.dump(object)
@@ -25,11 +25,14 @@ module ProxyLocal
 
       @@logger.info("Run with options #{options.inspect}")
 
-      trap "SIGCLD", "IGNORE"
-      trap "INT" do
-        puts
-        EventMachine.run
-        exit
+      begin
+        trap "SIGCLD", "IGNORE"
+        trap "INT" do
+          puts
+          EventMachine.run
+          exit
+        end
+      rescue ArgumentError
       end
 
       EventMachine.run do
