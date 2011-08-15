@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    proxylocal (0.3.0)
+      bert (>= 1.1.2)
+      eventmachine (>= 0.12.10)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    bert (1.1.2)
+    eventmachine (0.12.10)
+    rake (0.8.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (>= 1.0.10)
+  proxylocal!
+  rake (>= 0.8.7)
