@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = 'proxylocal'
   s.version     = ProxyLocal::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Just Lest']
+  s.authors     = ['Sergey Nartimov']
   s.email       = ['just.lest@gmail.com']
   s.homepage    = 'http://proxylocal.com/'
   s.summary     = 'Proxy your local web-server and make it publicly available over the internet'
