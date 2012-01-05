@@ -21,13 +21,17 @@ module ProxyLocal
       rescue ArgumentError
       end
 
-      EventMachine.run do
-        EventMachine.connect(options[:server_host], options[:server_port], self, options)
-      end
+      EventMachine.run { connect(options) }
+    end
+
+    def self.connect(options)
+      EventMachine.connect(options[:server_host], options[:server_port], self, options)
     end
 
     def initialize(options)
       @options = options
+
+      @reconnect = options[:hosts].any?
     end
 
     def send_options
@@ -50,8 +54,15 @@ module ProxyLocal
     end
 
     def unbind
-      EventMachine.stop_event_loop
-      puts 'A connection has been terminated'
+      if @reconnect
+        puts "Connection has been terminated. Trying to reconnect..."
+        EventMachine.add_timer 5 do
+          self.class.connect(@options)
+        end
+      else
+        EventMachine.stop_event_loop
+        puts "Connection has been terminated"
+      end
     end
 
     def receive_unknown(object)
@@ -68,6 +79,7 @@ module ProxyLocal
     end
 
     def receive_halt
+      @reconnect = false
       EventMachine.stop_event_loop
     end
 
