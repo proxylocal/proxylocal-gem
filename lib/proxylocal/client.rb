@@ -31,7 +31,7 @@ module ProxyLocal
     def initialize(options)
       @options = options
 
-      @reconnect = options[:hosts].any?
+      @reconnect = options[:hosts] && options[:hosts].any?
     end
 
     def send_options
