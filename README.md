@@ -1,11 +1,11 @@
 # ProxyLocal
 
-ProxyLocal could proxy your local web-server and make it publicly
+ProxyLocal proxies your local web-server and makes it publicly
 available over the internet.
 
-This software is splited into client and server parts. Server part is
+This software is split into client and server parts. The server part is
 running on [proxylocal.com] server and usage of its resources is free.
-Client is written in ruby and distributed as gem, its source code is
+The client is written in ruby and distributed as gem. Its source code is
 open and available on [github].
 
 ## Installation
@@ -19,7 +19,7 @@ and type:
 
 ## Usage
 
-Assume you are running your local web-server on port 3000. To make it
+I assume that you are running your local web-server on port 3000. To make it
 publicly available run:
 
     $ proxylocal 3000
@@ -29,7 +29,7 @@ publicly available run:
 Now you can open this link in your favorite browser and request will
 be proxied to your local web-server.
 
-Also you can specify preferred host you want to use, e.g.:
+Also you can specify the preferred host you want to use, e.g.:
 
     $ proxylocal 3000 --host testhost
     Local server on port 3000 is now publicly available via:
