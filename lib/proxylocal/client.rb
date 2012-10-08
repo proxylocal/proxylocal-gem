@@ -85,7 +85,7 @@ module ProxyLocal
 
     def receive_connection(id)
       @@logger.info('New connection')
-      connection = EventMachine.connect('127.0.0.1', @options[:local_port], ClientProxy)
+      connection = EventMachine.connect(@options[:ip], @options[:local_port], ClientProxy)
       connection.on_data do |data|
         send_object(:stream, id, data)
       end

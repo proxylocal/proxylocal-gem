@@ -29,6 +29,10 @@ begin
       options[:hosts] << host
     end
 
+    opts.on('--ip IP', 'Local IP forward destination address') do |ip|
+      options[:ip] = ip
+    end
+
     opts.on('--[no-]tls', 'Use TLS') do |tls|
       options[:tls] = tls
     end
@@ -67,6 +71,7 @@ default_options = {
   :server_host => 'proxylocal.com',
   :server_port => '8282',
   :local_port => '80',
+  :ip => "127.0.0.1",
   :tls => false,
   :verbose => false
 }
