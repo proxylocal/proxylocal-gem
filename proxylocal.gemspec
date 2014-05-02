@@ -4,6 +4,7 @@ require 'proxylocal/version'
 
 Gem::Specification.new do |s|
   s.name        = 'proxylocal'
+  s.license     = 'MIT'
   s.version     = ProxyLocal::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Sergey Nartimov']
