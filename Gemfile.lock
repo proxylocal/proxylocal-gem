@@ -10,7 +10,7 @@ GEM
   specs:
     bert (1.1.2)
     eventmachine (0.12.10)
-    rake (0.8.7)
+    rake (13.0.1)
 
 PLATFORMS
   ruby
